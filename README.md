@@ -1,34 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# diary app
 
-## Getting Started
+## ディレクトリ構成
 
-First, run the development server:
+### `components/`
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+アプリケーション全体で使用するコンポーネントを格納する
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### `/elements/`
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+ボタンなど共通コンポーネントを格納する
+ボタンを使用するための hooks などがあれば，このディレクトリに格納する
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+#### `/layouts/`
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Header や Footer などのレイアウトに関するコンポーネントを格納する
 
-## Learn More
+### `features/`
 
-To learn more about Next.js, take a look at the following resources:
+ある特定の機能，ドメインでしか使わない api のアクセサや定数，型，hooks，コンポーネントなど全てを詰め込む
+ex: ログイン情報 `/features/auth/store/`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### `store/`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+グローバルステートを格納する
+ダークモードなど
 
-## Deploy on Vercel
+### `config/`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+アプリケーションの設定を置く
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### `const/`
+
+アプリケーション全体の定数を置く
+
+### `hooks/` || `utils/`
+
+アプリケーション全体で使う共通ロジックを格納する
+単純な関数などは utils などに格納する
+
+### `libs/`
+
+ライブラリのラッパーや設定済みのインスタンスを export するファイルなどを配置する
