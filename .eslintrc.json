@@ -23,6 +23,7 @@
   "plugins": ["@typescript-eslint", "react"],
   "rules": {
     "@typescript-eslint/semi": "off",
+    "jsx-a11y/label-has-associated-control": "off",
     "react/react-in-jsx-scope": "off",
     "react/function-component-definition": [
       2,
