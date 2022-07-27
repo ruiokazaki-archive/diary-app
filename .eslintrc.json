@@ -25,6 +25,7 @@
     "@typescript-eslint/semi": "off",
     "jsx-a11y/label-has-associated-control": "off",
     "react/react-in-jsx-scope": "off",
+    "object-curly-newline": "off",
     "react/function-component-definition": [
       2,
       {
