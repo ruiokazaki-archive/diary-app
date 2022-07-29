@@ -127,7 +127,7 @@ const Home: NextPage = () => {
   })
 
   return (
-    <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0">
+    <div className="flex flex-col items-center min-h-screen md:justify-center sm:pt-0">
       <div className="w-full md:px-16 md:py-20 mt-6 overflow-hidden rounded-lg lg:max-w-4xl">
         <div className="w-full px-6 py-4 bg-white rounded shadow-md ring-1 ring-gray-900/10">
           <h1 className="mb-4 text-3xl font-bold decoration-gray-400">
