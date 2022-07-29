@@ -1,4 +1,18 @@
 import type { NextPage } from 'next'
+import {
+  BiUndo,
+  BiRedo,
+  BiBold,
+  BiItalic,
+  BiStrikethrough,
+  BiCode,
+  BiHeading,
+  BiCodeBlock,
+  BiListOl,
+  BiListUl,
+} from 'react-icons/bi'
+import { BsBlockquoteLeft } from 'react-icons/bs'
+import { FiChevronDown } from 'react-icons/fi'
 import { useEditor, EditorContent, Editor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 
@@ -8,143 +22,95 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
   }
 
   return (
-    <>
+    <div className="flex gap-1 flex-wrap">
       <button
         type="button"
         onClick={() => editor.chain().focus().toggleBold().run()}
-        className={editor.isActive('bold') ? 'is-active' : ''}
+        className={`opacity-60 hover:opacity-100 ${
+          editor.isActive('bold') ? 'bg-gray-300' : ''
+        }`}
       >
-        bold
+        <BiBold />
       </button>
       <button
         type="button"
         onClick={() => editor.chain().focus().toggleItalic().run()}
-        className={editor.isActive('italic') ? 'is-active' : ''}
+        className={`opacity-60 hover:opacity-100 ${
+          editor.isActive('italic') ? 'bg-gray-300' : ''
+        }`}
       >
-        italic
+        <BiItalic />
       </button>
       <button
         type="button"
         onClick={() => editor.chain().focus().toggleStrike().run()}
-        className={editor.isActive('strike') ? 'is-active' : ''}
+        className={`opacity-60 hover:opacity-100 ${
+          editor.isActive('strike') ? 'bg-gray-300' : ''
+        }`}
       >
-        strike
+        <BiStrikethrough />
       </button>
       <button
         type="button"
         onClick={() => editor.chain().focus().toggleCode().run()}
-        className={editor.isActive('code') ? 'is-active' : ''}
+        className={`opacity-60 hover:opacity-100 ${
+          editor.isActive('code') ? 'bg-gray-300' : ''
+        }`}
       >
-        code
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().unsetAllMarks().run()}
-      >
-        clear marks
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().clearNodes().run()}
-      >
-        clear nodes
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().setParagraph().run()}
-        className={editor.isActive('paragraph') ? 'is-active' : ''}
-      >
-        paragraph
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-        className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}
-      >
-        h1
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-        className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}
-      >
-        h2
+        <BiCode />
       </button>
       <button
         type="button"
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-        className={editor.isActive('heading', { level: 3 }) ? 'is-active' : ''}
+        className={`opacity-60 hover:opacity-100 ${
+          editor.isActive('heading', { level: 3 }) ? 'bg-gray-300' : ''
+        }`}
       >
-        h3
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
-        className={editor.isActive('heading', { level: 4 }) ? 'is-active' : ''}
-      >
-        h4
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
-        className={editor.isActive('heading', { level: 5 }) ? 'is-active' : ''}
-      >
-        h5
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
-        className={editor.isActive('heading', { level: 6 }) ? 'is-active' : ''}
-      >
-        h6
+        <BiHeading />
       </button>
       <button
         type="button"
         onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className={editor.isActive('bulletList') ? 'is-active' : ''}
+        className={`opacity-60 hover:opacity-100 ${
+          editor.isActive('bulletList') ? 'bg-gray-300' : ''
+        }`}
       >
-        bullet list
+        <BiListUl />
       </button>
       <button
         type="button"
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
-        className={editor.isActive('orderedList') ? 'is-active' : ''}
+        className={`opacity-60 hover:opacity-100 ${
+          editor.isActive('orderedList') ? 'bg-gray-300' : ''
+        }`}
       >
-        ordered list
+        <BiListOl />
       </button>
       <button
         type="button"
         onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-        className={editor.isActive('codeBlock') ? 'is-active' : ''}
+        className={`opacity-60 hover:opacity-100 ${
+          editor.isActive('codeBlock') ? 'bg-gray-300' : ''
+        }`}
       >
-        code block
+        <BiCodeBlock />
       </button>
       <button
         type="button"
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
-        className={editor.isActive('blockquote') ? 'is-active' : ''}
+        className={`opacity-60 hover:opacity-100 ${
+          editor.isActive('blockquote') ? 'bg-gray-300' : ''
+        }`}
       >
-        blockquote
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().setHorizontalRule().run()}
-      >
-        horizontal rule
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().setHardBreak().run()}
-      >
-        hard break
+        <BsBlockquoteLeft />
       </button>
       <button type="button" onClick={() => editor.chain().focus().undo().run()}>
-        undo
+        <BiUndo />
       </button>
       <button type="button" onClick={() => editor.chain().focus().redo().run()}>
-        redo
+        <BiRedo />
       </button>
-    </>
+    </div>
   )
 }
 
@@ -154,30 +120,30 @@ const Home: NextPage = () => {
     editorProps: {
       attributes: {
         class:
-          'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl m-5 focus:outline-none',
+          'rich-text prose prose-sm sm:prose lg:prose-lg xl:prose-2xl focus:outline-none m-0',
       },
     },
+    content: '<p></p><p></p><p></p><p></p>',
   })
 
   return (
-    <div className="flex flex-col items-center min-h-screen pt-6 bg-gray-100 sm:justify-center sm:pt-0">
-      <div className="w-full px-16 py-20 mt-6 overflow-hidden bg-white rounded-lg lg:max-w-4xl">
-        <h1 className="mb-4 text-3xl font-bold decoration-gray-400">
-          投稿する
-        </h1>
-
+    <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0">
+      <div className="w-full md:px-16 md:py-20 mt-6 overflow-hidden rounded-lg lg:max-w-4xl">
         <div className="w-full px-6 py-4 bg-white rounded shadow-md ring-1 ring-gray-900/10">
-          <form className="flex flex-col gap-2">
+          <h1 className="mb-4 text-3xl font-bold decoration-gray-400">
+            投稿する
+          </h1>
+          <form className="flex flex-col gap-4">
             {/* title */}
-            <div>
+            <div className="flex justify-between items-center">
               <label
-                htmlFor="title"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                htmlFor="select"
+                className="flex py-2.5 pl-2 pr-1 text-sm font-medium text-center text-gray-900 rounded-l-lg focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 bg-gray-100 border border-gray-300 dark:border-gray-700 dark:text-white hover:bg-gray-200"
               >
-                タイトル
-              </label>
-              <div className="flex">
-                <select className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-2 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 dark:border-gray-700 dark:text-white rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                <select
+                  id="select"
+                  className="appearance-none outline-none focus:outline-none bg-gray-100 dark:text-white hover:bg-gray-200 border-0"
+                >
                   <option value={1}>😖</option>
                   <option value={2}>😔</option>
                   <option value={3} selected>
@@ -191,21 +157,29 @@ const Home: NextPage = () => {
                   <option disabled>---</option>
                   <option value={8}>✍️</option>
                 </select>
-                <div className="relative w-full">
-                  <input
-                    id="title"
-                    className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-100 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
-                    placeholder="タイトルを入力してください"
-                    required
-                  />
-                </div>
+                <FiChevronDown size="20px" />
+              </label>
+              <div className="relative w-full">
+                <input
+                  id="title"
+                  className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-100 border-l-2 border dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:outline-0"
+                  placeholder="タイトルを入力してください"
+                  required
+                />
               </div>
             </div>
 
             {/* Richtext */}
-            <div>
-              <MenuBar editor={editor} />
-              <EditorContent editor={editor} />
+            <div className="w-full bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600">
+              <div className="flex justify-between items-center py-2 px-3 border-b dark:border-gray-600">
+                <MenuBar editor={editor} />
+              </div>
+              <div className="py-2 px-4 rounded-b-lg dark:bg-gray-800">
+                <label htmlFor="editor" className="sr-only">
+                  Publish post
+                </label>
+                <EditorContent editor={editor} />
+              </div>
             </div>
 
             {/* dropzone */}
