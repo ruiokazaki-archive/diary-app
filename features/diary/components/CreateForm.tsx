@@ -11,7 +11,7 @@ import {
   useState,
 } from 'react'
 import { getStorage, ref, uploadBytes } from 'firebase/storage'
-import { doc, getFirestore, setDoc } from 'firebase/firestore'
+import { doc, getFirestore, serverTimestamp, setDoc } from 'firebase/firestore'
 import imageCompression from 'browser-image-compression'
 import { toast } from 'react-toastify'
 import Button from '../../../components/elements/Button'
@@ -42,8 +42,6 @@ const CreateForm = () => {
 
   const uploadImageHandler: ChangeEventHandler<HTMLInputElement> = () => {
     const files = imageFileRef.current?.files
-    // eslint-disable-next-line no-console
-    console.log(files)
 
     if (files === null || files === undefined || files.length === 0) return
 
@@ -100,6 +98,8 @@ const CreateForm = () => {
         body,
         emotion,
         uploadImage,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
       }
 
       const db = getFirestore()

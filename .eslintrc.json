@@ -29,6 +29,7 @@
     "react/button-has-type": "off",
     "react/require-default-props": "off",
     "operator-linebreak": "off",
+    "@typescript-eslint/comma-dangle": "off",
     "@next/next/no-img-element": "off",
     "react/function-component-definition": [
       2,
