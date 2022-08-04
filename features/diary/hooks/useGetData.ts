@@ -9,7 +9,7 @@ import {
   query,
 } from 'firebase/firestore'
 import useAuthContext from '../../auth/store/AuthContext'
-import { FirestorePost } from '../types/diary'
+import { FirestoreDiary } from '../types/diary'
 
 const userConverter = {
   toFirestore(): DocumentData {
@@ -18,7 +18,7 @@ const userConverter = {
   fromFirestore(
     snapshot: QueryDocumentSnapshot,
     options: SnapshotOptions
-  ): FirestorePost {
+  ): FirestoreDiary {
     const { id, body, emotion, title, uploadImage, createdAt, updatedAt } =
       snapshot.data(options)
     return {
