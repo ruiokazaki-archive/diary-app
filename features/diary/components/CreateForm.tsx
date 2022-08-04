@@ -11,7 +11,13 @@ import {
   useState,
 } from 'react'
 import { getStorage, ref, uploadBytes } from 'firebase/storage'
-import { doc, getFirestore, serverTimestamp, setDoc } from 'firebase/firestore'
+import {
+  doc,
+  getFirestore,
+  serverTimestamp,
+  setDoc,
+  Timestamp,
+} from 'firebase/firestore'
 import imageCompression from 'browser-image-compression'
 import { toast } from 'react-toastify'
 import Button from '../../../components/elements/Button'
@@ -71,6 +77,7 @@ const CreateForm = () => {
   const registerWithFirestore = async () => {
     const title = titleRef.current?.value
     const emotion = emotionRef.current?.value
+
     if (
       editor === null ||
       title === null ||
@@ -94,12 +101,13 @@ const CreateForm = () => {
           : null
 
       const submitData = {
+        id: String(now.getTime()),
         title,
         body,
         emotion,
         uploadImage,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
+        createdAt: serverTimestamp() as Timestamp,
+        updatedAt: serverTimestamp() as Timestamp,
       }
 
       const db = getFirestore()
@@ -139,18 +147,18 @@ const CreateForm = () => {
             id="select"
             ref={emotionRef}
             className="appearance-none outline-none focus:outline-none bg-gray-100 dark:text-white hover:bg-gray-200 border-0"
-            defaultValue={3}
+            defaultValue={2}
           >
-            <option value={1}>😖</option>
-            <option value={2}>😔</option>
-            <option value={3}>🙂</option>
-            <option value={4}>😚</option>
-            <option value={5}>🥳</option>
+            <option value={0}>😖</option>
+            <option value={1}>😔</option>
+            <option value={2}>🙂</option>
+            <option value={3}>😚</option>
+            <option value={4}>🥳</option>
             <option disabled>---</option>
-            <option value={6}>😡</option>
-            <option value={7}>😭</option>
+            <option value={5}>😡</option>
+            <option value={6}>😭</option>
             <option disabled>---</option>
-            <option value={8}>✍️</option>
+            <option value={7}>✍️</option>
           </select>
           <FiChevronDown size="20px" />
         </label>
