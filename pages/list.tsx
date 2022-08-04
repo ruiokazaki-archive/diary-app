@@ -1,94 +1,63 @@
-import {
-  collection,
-  DocumentData,
-  getDocs,
-  getFirestore,
-  QueryDocumentSnapshot,
-  SnapshotOptions,
-} from 'firebase/firestore'
+import { Timestamp } from 'firebase/firestore'
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import { FC, useState } from 'react'
-import useAuthContext from '../features/auth/store/AuthContext'
+import { FC, useEffect, useState } from 'react'
+import emotionEmoji from '../features/diary/const/emotion'
+import { useGetAllData } from '../features/diary/hooks/useGetData'
+import { FirestoreDiary } from '../features/diary/types/diary'
 
 type ItmeProps = {
+  diaryId: string
   title: string
-  imgUrl: string
-  date: string
-}
-
-const ListItem: FC<ItmeProps> = ({ title, imgUrl, date }) => (
-  <li className="py-3 sm:py-4">
-    <div className="flex items-center space-x-4">
-      <div className="flex-shrink-0">
-        <img className="w-8 h-8 rounded-full" src={imgUrl} alt="Neil" />
-      </div>
-      <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-          {title}
-        </p>
-        <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-          {date}
-        </p>
-      </div>
-    </div>
-  </li>
-)
-
-type FirestorePost = {
-  body: string
   emotion: string
-  title: string
-  uploadImage: string
-  createdAt: Date
-  updatedAt: Date
+  date: Timestamp
 }
 
-const userConverter = {
-  toFirestore(post: FirestorePost): DocumentData {
-    return []
-  },
-  fromFirestore(
-    snapshot: QueryDocumentSnapshot,
-    options: SnapshotOptions
-  ): FirestorePost {
-    const { body, emotion, title, uploadImage, createdAt, updatedAt } =
-      snapshot.data(options)
-    return {
-      body,
-      emotion,
-      title,
-      uploadImage,
-      createdAt,
-      updatedAt,
-    }
-  },
+const ListItem: FC<ItmeProps> = ({ title, emotion, date, diaryId }) => {
+  const createdAt = date.toDate()
+
+  return (
+    <li className="py-3 sm:py-4">
+      <Link href={diaryId}>
+        <div className="flex items-center space-x-4">
+          <div className="flex-shrink-0">
+            <p className="text-3xl">{emotionEmoji[Number(emotion)]}</p>
+            {/* <img className="w-8 h-8 rounded-full" src={imgUrl} alt="Neil" /> */}
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+              {title}
+            </p>
+            <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+              {`${createdAt.getFullYear()}/${
+                createdAt.getMonth() + 1
+              }/${createdAt.getDate()}`}
+            </p>
+          </div>
+        </div>
+      </Link>
+    </li>
+  )
 }
 
 const List: NextPage = () => {
-  const [items, setItems] = useState<ItmeProps[]>([])
-  const { user } = useAuthContext()
+  const [items, setItems] = useState<FirestoreDiary[]>([])
+  const { getAllData } = useGetAllData()
 
-  const getData = async () => {
-    const db = getFirestore()
-    const dt = user?.uid
-      ? await getDocs(collection(db, user.uid).withConverter(userConverter))
-      : undefined
-
-    if (dt === undefined) return
-
-    const hoge = dt.docs.map((d) => d.data())
-
-    // eslint-disable-next-line no-console
-    console.log(hoge)
-  }
-  getData()
+  useEffect(() => {
+    const asyncFn = async () => {
+      const data = await getAllData()
+      setItems(data)
+    }
+    asyncFn()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  })
 
   return (
     <div className="p-4 max-w-md bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
       <div className="flex justify-between items-center mb-4">
         <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
-          Latest Customers
+          Latest Diary
         </h5>
         <Link
           href="/"
@@ -99,11 +68,15 @@ const List: NextPage = () => {
       </div>
       <div className="flow-root">
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-          <ListItem title="title" imgUrl="/favicon.ico" date="2022/02/06" />
-          <ListItem title="title" imgUrl="/favicon.ico" date="2022/02/06" />
-          <ListItem title="title" imgUrl="/favicon.ico" date="2022/02/06" />
-          <ListItem title="title" imgUrl="/favicon.ico" date="2022/02/06" />
-          <ListItem title="title" imgUrl="/favicon.ico" date="2022/02/06" />
+          {items.map(({ createdAt, emotion, title, id }) => (
+            <ListItem
+              date={createdAt}
+              title={title}
+              emotion={emotion}
+              diaryId={id}
+              key={createdAt.toString()}
+            />
+          ))}
         </ul>
       </div>
     </div>
